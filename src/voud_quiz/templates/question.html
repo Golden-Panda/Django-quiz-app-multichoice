@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load quiz_tags %}
+
+{% block title %}
+{{ quiz.name }}
+{% endblock title %}
+
+{% block content %}
+
+{% if previous.answers %}
+<p class="muted"><small>Предыдущий вопрос:</small></p>
+<p>{{ previous.previous_question }}</p>
+
+	<div class="alert alert-success">
+	{% for a_id in previous.previous_answers%}
+	{{ previous.answers.}}
+	{% endfor %}
+
+	
+
+<p><small>Ваш балл за прошлый ответ был:</small>
+<strong> {{ previous.previous_outcome }} </strong>
+</p>
+</div>
+
+{% include 'correct_answer.html' %}
+
+{% endif %}
+<br/>
+{% if question %}
+
+{% if progress %}
+<div style="float: right;">
+Вопрос {{progress.0|add:1}} из {{ progress.1 }}
+</div>
+{% endif %}
+
+<p>
+<small class="muted">Предмет:</small>
+<strong>{{ quiz.subject }}</strong>
+</p>
+<p class="lead">{{ question.content }}</p>
+{% if question.figure %}
+<img src="{{ question.figure.url }}" alt="{{ question.content }}"/>
+{% endif %}
+<form action="" method="POST">{% csrf_token %}
+<input type=hidden name="question_id" value="{{ question_id }}"
+<ul class="list-group">
+{% for answer in form.answers %}
+<li class="list-group-item">
+{{ answer }}
+</li>
+{% endfor %}
+</ul>
+<input type="submit" value="Подтвердить" class="btn btn-large btn-block btn-success">
+</form>
+{% endif %}
+<hr>
+
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+Список всех тестов
+{% endblock title %}
+
+{% block content %}
+<h3>Тесты</h3>
+	{% if quiz_list %}
+	<div class="row">
+	<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th>Предмет</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for quiz in quiz_list %}
+		<tr>
+			<td>{{ quiz.name }}</td>
+			<td>{{ quiz.subject }}</td>
+			<td><a href="{% url 'voud_quiz:quiz_start_page' slug=quiz.url %}">Начать</a></td>
+		</tr>
+	{% endfor %}
+
+
+	</tbody>
+
+
+
+	</table>
+
+	</div>
+	{%else %}
+	<h3>Нет доступных тестов</h3>
+	{% endif %}
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ quiz.name }}
+{% endblock title %}
+
+{% block content %}
+<a href="{% url 'voud_quiz:quiz_question' quiz_name=quiz.url %}">ЕХАЛА!</a>
+{% endblock content %}

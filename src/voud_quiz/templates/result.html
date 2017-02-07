@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load quiz_tags %}
+{% block title %}
+{{ question.quiz.name }}
+{% endblock title %}
+
+{% block content %}
+
+
+{% if previous.previous_answers %}
+
+<p class="muted"><small>Предыдущий вопрос:</small>
+</p>
+<p> {{ previous.previous_question }}</p>
+<p> Балл за предыдущий ответ:
+<strong>
+	{{ previous.previous_outcome }}
+</strong>
+</p>
+{% include 'correct_answer.html' %}
+{% endif %}
+<hr>
+<div class="row"><h1>Общие данные</h1></div>
+{% if possible %}
+
+<p class="lead">
+Очки: {{ session }} из {{ possible }}
+</p>
+{% endif %}
+
+{% if questions %}
+{% for question in questions %}
+
+<p class="lead">
+Вопрос: {{ question.content }}
+
+</p>
+Ответы:
+{% correct_answer_for_all question %}
+
+	{% if question.user_answer %}
+	<p>Ответ: {{ question|answer_choice_to_string:question.user.answers }}
+	</p>
+	{% endif %}
+
+	{% endfor %}
+{% endif %}
+
+<a href="{% url 'voud_quiz:quiz_index' %}">К списку тестов</a>
+{% endblock content %}

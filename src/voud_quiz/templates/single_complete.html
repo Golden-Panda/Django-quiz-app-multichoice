@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load quiz_tags %}
+
+{% block title %}
+{{ quiz.name }}
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<p>Ты уже проходил этот тест и у тебя была одна попытка</p>
+{% else %}
+<p>Надо залогиниться</p>
+{% endif %}
+{% endblock content %}

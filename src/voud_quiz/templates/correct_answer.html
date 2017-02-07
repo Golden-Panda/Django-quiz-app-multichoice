@@ -1,0 +1,58 @@
+{% if previous.answers %}
+
+
+<table class="table table-striped table-bordered">
+<tbody>
+
+
+	{% for answer in previous.answers %}
+	
+	{% if answer.id|stringformat:"s" in previous.previous_answers  and answer.correct %}
+	<tr class="success">
+	<td> {{ answer.answer }}</td>
+	<td>Отмечен вами и он правильный</td>
+
+	{% elif answer.id|stringformat:"s" in previous.previous_answers  and not answer.correct   %}
+	<tr class="warning">
+	<td> {{ answer.answer }}</td>
+	<td>Отмечен вами и он не правильный</td>
+	{% elif answer.id|stringformat:"s" not in previous.previous_answers  and answer.correct %}
+	<tr class="info">
+	<td> {{ answer.answer }}</td>
+	<td>Правильный ответ</td>
+	{% else %}
+	{% if not ta %}
+		{% if answer.correct %}
+		<tr class="info">
+		<td>{{ answer.answer }}</td>
+		<td>Правильный ответ</td>
+		{% else %}
+		<tr class="">
+		<td>{{ answer.answer }}</td>
+		<td></td>
+		{% endif %}
+	{% else %}
+		{% if answer.correct %}
+		<tr class="info">
+		<td>{{ answer.answer }}</td>
+		<td>Правильный</td>
+		{% endif %}
+	{% endif %}
+	{% endif %}
+
+	
+		
+		</tr>
+
+	{% endfor %}
+
+</tbody>
+	
+</table>
+{% endif %}
+
+{{ incorrect_list }}
+
+
+
+	
